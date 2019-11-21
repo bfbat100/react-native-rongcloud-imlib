@@ -24,4 +24,16 @@ public class RCPushReceiver extends PushMessageReceiver {
         }
         return false;
     }
+
+    /**
+     * 第三方push状态回调
+     *
+     * @param pushType   push类型
+     * @param action     当前的操作，连接或者获取token
+     * @param resultCode 返回的错误码
+     */
+    @Override
+    public void onThirdPartyPushState(PushType pushType, String action, long resultCode) {
+        super.onThirdPartyPushState(pushType, action, resultCode);
+    }
 }

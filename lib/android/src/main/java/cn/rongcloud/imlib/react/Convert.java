@@ -1,6 +1,7 @@
 package cn.rongcloud.imlib.react;
 
 import android.net.Uri;
+import android.util.Log;
 
 import com.facebook.react.bridge.*;
 
@@ -47,9 +48,13 @@ class Convert {
         map.putString("objectName", objectName);
         switch (objectName) {
             case "RC:TxtMsg":
-                TextMessage text = (TextMessage) content;
-                map.putString("content", text.getContent());
-                map.putString("extra", text.getExtra());
+                if (content instanceof TextMessage){
+                    TextMessage text = (TextMessage) content;
+                    map.putString("content", text.getContent());
+                    map.putString("extra", text.getExtra());
+                }else {
+                    Log.i("RongCloud custom log", "error: convert.java 55行, toJSON()方法: UnknownMessage cannot be cast to TextMessage<<<<<<<<<<<<<<<<<<<<<<");
+                }
                 break;
             case "RC:ImgMsg": {
                 ImageMessage image = (ImageMessage) content;
@@ -107,9 +112,13 @@ class Convert {
             }
             case "RC:VcMsg": {
                 VoiceMessage voice = (VoiceMessage) content;
-                map.putString("local", voice.getUri().toString());
-                map.putInt("duration", voice.getDuration());
-                map.putString("extra", voice.getExtra());
+                if(voice != null){
+                  map.putString("local", voice.getUri().toString());
+                  map.putInt("duration", voice.getDuration());
+                  map.putString("extra", voice.getExtra());
+                }else{
+                    Log.i("RongCloud custom log", "error: convert.java 119行, : voice为null <<<<<<<<<<<<<<<<<<<<<<");
+                }
                 break;
             }
             case "RC:RcNtf": {

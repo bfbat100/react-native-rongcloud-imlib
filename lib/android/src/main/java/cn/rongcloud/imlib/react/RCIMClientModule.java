@@ -1,5 +1,8 @@
 package cn.rongcloud.imlib.react;
 
+import android.app.Activity;
+import android.app.Application;
+
 import com.facebook.react.bridge.*;
 import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEmitter;
 import io.rong.imlib.CustomServiceConfig;
@@ -23,6 +26,15 @@ import io.rong.imlib.model.Message.SentStatus;
 import io.rong.imlib.typingmessage.TypingStatus;
 import io.rong.message.MediaMessageContent;
 import io.rong.message.RecallNotificationMessage;
+import io.rong.push.PushManager;
+import io.rong.push.PushType;
+import io.rong.push.RongPushClient;
+import io.rong.push.common.RLog;
+import io.rong.push.platform.hms.HMSAgent;
+import io.rong.push.platform.hms.HWPush;
+import io.rong.push.platform.hms.common.handler.ConnectHandler;
+import io.rong.push.platform.hms.push.handler.GetTokenHandler;
+import io.rong.push.pushconfig.PushConfig;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -134,9 +146,18 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
 
     @ReactMethod
     public void init(String key) {
+    // 新sdk不需要改域名
+//        // 融云的导航服务的 nav.cn.ronghub.com 域名遭受到了污染，无法正常解析到我们的业务服务器。
+//        // 为了保证业务尽快恢复，建议您继续使用现有版本 SDK，紧急替换 SDK 域名，并且引导客户升级包含新域名的 App。
+//        RongIMClient.setServerInfo("nav2-cn.ronghub.com", "up.qbox.me");
         eventEmitter = reactContext.getJSModule(RCTDeviceEventEmitter.class);
         RCPushReceiver.eventEmitter = eventEmitter;
-        RongIMClient.init(reactContext, key);
+        PushConfig config = new PushConfig.Builder()
+            .enableMiPush("2882303761517897403", "5911789723403") //配置小米推送
+            .enableHWPush(true)  // 配置华为推送
+            .build();
+        RongPushClient.setPushConfig(config);
+        RongIMClient.init(reactContext.getApplicationContext(), key);
     }
 
     @ReactMethod

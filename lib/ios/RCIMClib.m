@@ -179,7 +179,7 @@ RCT_EXPORT_METHOD(recallMessage
       pushContent:pushContent
       success:^(long messageId) {
         RCMessage *message = [RCIMClient.sharedRCIMClient getMessage:messageId];
-        resolve([self fromMessageContent:message.content]);
+        resolve([self fromMessageContent:message.content messageId:message.messageId]);
       }
       error:^(RCErrorCode errorcode) {
         [self reject:reject error:errorcode];
@@ -1600,7 +1600,7 @@ RCT_EXPORT_METHOD(getCurrentUserId
     @"targetId" : conversation.targetId,
     @"objectName" : conversation.objectName,
     @"latestMessageId" : @(conversation.lastestMessageId),
-    @"latestMessage" : [self fromMessageContent:conversation.lastestMessage],
+    @"latestMessage" : [self fromMessageContent:conversation.lastestMessage messageId:conversation.lastestMessageId],
     @"receivedStatus" : @(conversation.receivedStatus),
     @"receivedTime" : @(conversation.receivedTime),
     @"sentTime" : @(conversation.sentTime),
@@ -1623,17 +1623,24 @@ RCT_EXPORT_METHOD(getCurrentUserId
     @"sentStatus" : @(message.sentStatus),
     @"receivedStatus" : @(message.receivedStatus),
     @"receivedTime" : @(message.receivedTime),
-    @"content" : [self fromMessageContent:message.content],
+    @"content" : [self fromMessageContent:message.content messageId:message.messageId],
     @"extra" : message.extra ? message.extra : @"",
+    @"sentStatus" : @(message.sentStatus),
   };
 }
 
-- (NSDictionary *)fromMessageContent:(RCMessageContent *)content {
+- (NSDictionary *)fromMessageContent:(RCMessageContent *)content messageId: (long)messageId {
   if ([content isKindOfClass:[RCImageMessage class]]) {
     RCImageMessage *image = (RCImageMessage *)content;
+    NSString *encodedImageStr = @"";
+    if(image.thumbnailImage){
+        NSData *data = UIImageJPEGRepresentation(image.thumbnailImage, 0.5f);
+        encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    }
     return @{
       @"objectName" : @"RC:ImgMsg",
       @"local" : image.localPath ? image.localPath : @"",
+      @"thumbnail" : encodedImageStr,
       @"remote" : image.remoteUrl ? image.remoteUrl : @"",
       @"isFull" : @(image.isFull),
       @"extra" : image.extra ? image.extra : @""
@@ -1642,7 +1649,7 @@ RCT_EXPORT_METHOD(getCurrentUserId
     RCTextMessage *text = (RCTextMessage *)content;
     return @{
       @"objectName" : @"RC:TxtMsg",
-      @"content" : text.content,
+      @"content" : text.content ? text.content : @"",
       @"extra" : text.extra ? text.extra : @""
     };
   } else if ([content isKindOfClass:[RCFileMessage class]]) {
@@ -1678,7 +1685,7 @@ RCT_EXPORT_METHOD(getCurrentUserId
     RCVoiceMessage *message = (RCVoiceMessage *)content;
     NSString *data = @"";
     if (message.wavAudioData) {
-      data = [message.wavAudioData base64EncodedStringWithOptions:0];
+      data = [self saveWavAudioDataToSandbox:message.wavAudioData messageId:messageId];
     }
     return @{
       @"objectName" : @"RC:VcMsg",
@@ -1759,6 +1766,28 @@ RCT_EXPORT_METHOD(getCurrentUserId
   }
 
   return @{@"error" : @"Content type not yet supported"};
+}
+
+// 储存语音文件
+- (NSString *)saveWavAudioDataToSandbox:(NSData *)data messageId:(NSInteger)msgId{
+
+    NSFileManager * fileManager = [NSFileManager defaultManager];
+
+    NSString * documentPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+
+    NSString * directoryPath = [documentPath stringByAppendingString:@"/ChatMessage"];
+
+    if(![fileManager fileExistsAtPath:directoryPath]){
+
+        [fileManager createDirectoryAtPath:directoryPath withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+
+
+    NSString * filePath = [directoryPath stringByAppendingString:[NSString stringWithFormat:@"/%ld.wav",msgId]];
+
+    [fileManager createFileAtPath:filePath contents:data attributes:nil];
+
+    return filePath;
 }
 
 - (RCMessageContent *)toMessageContent:(NSDictionary *)content {
