@@ -1,7 +1,11 @@
 package cn.rongcloud.imlib.react;
+import android.util.Log;
 
 import android.app.Activity;
 import android.app.Application;
+import org.json.JSONException;
+import org.json.JSONObject;
+import io.rong.imlib.AnnotationNotFoundException;
 
 import com.facebook.react.bridge.*;
 import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEmitter;
@@ -35,6 +39,7 @@ import io.rong.push.platform.hms.HWPush;
 import io.rong.push.platform.hms.common.handler.ConnectHandler;
 import io.rong.push.platform.hms.push.handler.GetTokenHandler;
 import io.rong.push.pushconfig.PushConfig;
+import cn.rongcloud.imlib.react.CustomizeMessage;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -158,6 +163,12 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
             .build();
         RongPushClient.setPushConfig(config);
         RongIMClient.init(reactContext.getApplicationContext(), key);
+        try {
+            RongIMClient.registerMessageType(CustomizeMessage.class);
+        } catch (AnnotationNotFoundException e) {
+            Log.e("AnnotationNotFoundExc", e.getMessage());
+//            RLog.e(this, "JSONException", e.getMessage());
+        }
     }
 
     @ReactMethod

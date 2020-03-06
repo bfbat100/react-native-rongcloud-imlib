@@ -1,6 +1,7 @@
 package cn.rongcloud.imlib.react;
 
 import android.net.Uri;
+import android.os.Parcel;
 import android.util.Log;
 
 import com.facebook.react.bridge.*;
@@ -13,6 +14,7 @@ import io.rong.imlib.typingmessage.TypingStatusMessage;
 import io.rong.message.*;
 import io.rong.push.PushType;
 import io.rong.push.notification.PushNotificationMessage;
+import cn.rongcloud.imlib.react.CustomizeMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -226,6 +228,16 @@ class Convert {
                 map.putInt("width", message.getWidth());
                 map.putInt("height", message.getHeight());
                 map.putString("extra", message.getExtra());
+                break;
+            }
+            case "system:noPush": {
+                if (content instanceof CustomizeMessage){
+                    CustomizeMessage Customize = (CustomizeMessage) content;
+                    map.putString("content", Customize.getContent());
+                    map.putString("extra", Customize.getExtra());
+                }else {
+                    Log.i("RongCloud custom log", "error: convert.java 55行, toJSON()方法: UnknownMessage cannot be cast to TextMessage<<<<<<<<<<<<<<<<<<<<<<");
+                }
                 break;
             }
         }
@@ -485,7 +497,11 @@ class Convert {
                         ((GIFMessage) messageContent).setExtra(map.getString("extra"));
                     }
                     break;
-            }
+                case "system:noPush":
+                    /* 自定义系统消息 */
+                    messageContent = new CustomizeMessage(("{\"content\":"+ map.getString("content") +"\"extra\":"+ map.getString("extra")+"}").getBytes());
+                    break;
+                }
         }
 
         if (messageContent != null && map.hasKey("userInfo")) {
