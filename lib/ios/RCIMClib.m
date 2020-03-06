@@ -1659,8 +1659,8 @@ RCT_EXPORT_METHOD(getCurrentUserId
       @"objectName" : @"RC:FileMsg",
       @"local" : file.localPath ? file.localPath : @"",
       @"remote" : file.remoteUrl ? file.remoteUrl : @"",
-      @"name" : file.name,
-      @"fileType" : file.type,
+      @"name" : file.name ? file.name : @"",
+      @"fileType" : file.type ? file.type : @"",
       @"size" : @(file.size),
       @"extra" : file.extra ? file.extra : @"",
     };
