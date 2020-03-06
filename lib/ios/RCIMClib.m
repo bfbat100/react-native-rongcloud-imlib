@@ -11,6 +11,7 @@ RCT_EXPORT_METHOD(init : (NSString *)key) {
   [RCIMClient.sharedRCIMClient setReceiveMessageDelegate:self object:nil];
   [RCIMClient.sharedRCIMClient setRCLogInfoDelegate:self];
   [RCIMClient.sharedRCIMClient setRCTypingStatusDelegate:self];
+  [RCIMClient.sharedRCIMClient registerMessageType:[RCCustomMessageContent class]];
 }
 
 RCT_EXPORT_METHOD(setDeviceToken : (NSString *)token) {
@@ -1763,6 +1764,12 @@ RCT_EXPORT_METHOD(getCurrentUserId
       @"gifDataSize" : @(message.gifDataSize),
       @"extra" : message.extra ? message.extra : @"",
     };
+  } else if ([content isKindOfClass:[RCCustomMessageContent class]]) {
+      RCCustomMessageContent *text = (RCCustomMessageContent *)content;
+      return @{
+               @"objectName" : @"system:noPush",
+               @"content" : text.content
+               };
   }
 
   return @{@"error" : @"Content type not yet supported"};
@@ -1842,7 +1849,10 @@ RCT_EXPORT_METHOD(getCurrentUserId
     messageContent = message;
   } else if ([objectName isEqualToString:@"RC:GIFMsg"]) {
     // TODO: RCGIFMessage
-  }
+  } else if ([objectName isEqualToString:@"system:noPush"]) {
+       RCCustomMessageContent *text = [RCCustomMessageContent initWithMessageWithContent:content[@"content"]];
+       messageContent = text;
+   }
 
   if (messageContent) {
     NSDictionary *userInfo = content[@"userInfo"];

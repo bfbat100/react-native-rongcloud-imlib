@@ -151,7 +151,11 @@ export declare enum ObjectName {
     /**
      * 群消息已读状态回执
      */
-    ReadReceiptResponse = "RC:RRRspMsg"
+    ReadReceiptResponse = "RC:RRRspMsg",
+    /**
+     * 自定义消息,
+     */
+    SystemNoPush = "system:noPush"
 }
 /**
  * 消息对象名称枚举
