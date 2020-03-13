@@ -1768,7 +1768,8 @@ RCT_EXPORT_METHOD(getCurrentUserId
       RCCustomMessageContent *text = (RCCustomMessageContent *)content;
       return @{
                @"objectName" : @"system:noPush",
-               @"content" : text.content
+               @"content" : text.content ? text.content : @"",
+               @"extra": text.extra ? text.extra : @""
                };
   }
 
@@ -1850,7 +1851,7 @@ RCT_EXPORT_METHOD(getCurrentUserId
   } else if ([objectName isEqualToString:@"RC:GIFMsg"]) {
     // TODO: RCGIFMessage
   } else if ([objectName isEqualToString:@"system:noPush"]) {
-       RCCustomMessageContent *text = [RCCustomMessageContent initWithMessageWithContent:content[@"content"]];
+       RCCustomMessageContent *text = [RCCustomMessageContent initWithMessageWithContent:content[@"content"] extra:content[@"extra"]];
        messageContent = text;
    }
 

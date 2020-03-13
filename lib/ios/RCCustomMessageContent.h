@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface RCCustomMessageContent : RCMessageContent
 
 @property (nonatomic,strong) NSString *content;
+@property (nonatomic,strong) NSString *extra;
 
 /*!
  初始化文本消息
@@ -20,8 +21,8 @@ NS_ASSUME_NONNULL_BEGIN
  @param content 文本消息的内容
  @return        文本消息对象
  */
-+ (instancetype)initWithMessageWithContent:(NSString *)content;
-- (instancetype)initWithCustomMessage:(NSString *)content ;
++ (instancetype)initWithMessageWithContent:(NSString *)content extra:(NSString *)extra;
+- (instancetype)initWithCustomMessage:(NSString *)content extra:(NSString *)extra;
 
 @end
 

@@ -10,14 +10,15 @@
 
 @implementation RCCustomMessageContent
 
-+ (instancetype)initWithMessageWithContent:(NSString *)content{
++ (instancetype)initWithMessageWithContent:(NSString *)content extra:(nonnull NSString *)extra{
    
-    return [[self alloc]initWithCustomMessage:content];
+    return [[self alloc]initWithCustomMessage:content extra:extra];
 }
-- (instancetype)initWithCustomMessage:(NSString *)content {
+- (instancetype)initWithCustomMessage:(NSString *)content extra:(nonnull NSString *)extra{
     
     if (self = [super init]) {
         self.content = content;
+        self.extra = extra;
     }
     return self;
 }
@@ -28,7 +29,7 @@
  @discussion 消息内容通过此方法，将消息中的所有数据，编码成为json数据，返回的json数据将用于网络传输。
  */
 - (NSData *)encode{
-    NSDictionary *dict = @{@"content":self.content};
+    NSDictionary *dict = @{@"content":self.content, @"extra": self.extra};
     NSError *error;
     NSData *data = [NSJSONSerialization dataWithJSONObject:dict options:NSJSONWritingPrettyPrinted error:&error];
     return data;
@@ -45,6 +46,7 @@
     NSError *error;
     NSDictionary *jsonDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:&error];
     self.content = jsonDict[@"content"];
+    self.extra = jsonDict[@"extra"];
 }
 
 /*!
