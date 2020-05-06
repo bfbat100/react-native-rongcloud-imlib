@@ -160,6 +160,8 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
         PushConfig config = new PushConfig.Builder()
             .enableMiPush("2882303761517897403", "5911789723403") //配置小米推送
             .enableHWPush(true)  // 配置华为推送
+            .enableVivoPush(true)  // 配置vivo推送
+            .enableOppoPush("f593ee02b3514dfb9c96b3284dba7b27", "b9091063c9fb46a6bfd21d2fba637da2")  // 配置oppo推送
             .build();
         RongPushClient.setPushConfig(config);
         RongIMClient.init(reactContext.getApplicationContext(), key);
