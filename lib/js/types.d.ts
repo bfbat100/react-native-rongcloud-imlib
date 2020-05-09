@@ -239,6 +239,18 @@ export interface HQVoiceMessage extends MessageContent {
     remote?: string;
     duration: number;
 }
+
+export interface SightMessage extends MessageContent{
+    objectName : ObjectName.Sight;
+    local?: string;
+    remote?: string;
+    thumb?: string;
+    name: string;
+    base64?: string;
+    duration: number;
+    size: number;
+}
+
 /**
  * 命令消息
  */
