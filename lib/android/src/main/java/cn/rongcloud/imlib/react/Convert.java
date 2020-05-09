@@ -261,11 +261,10 @@ class Convert {
                     map.putString("local", local);
                     map.putString("remote", remote);
                     map.putString("thumb", thumb);
-                    map.putInt("thumb", sightMessage.getDuration());
-                    map.putString("extra", sightMessage.getExtra());
-                    map.putString("base64", sightMessage.getBase64());
-                    map.putString("base64", sightMessage.getBase64());
                     map.putString("name", sightMessage.getName());
+                    map.putString("base64", sightMessage.getBase64());
+                    map.putString("extra", sightMessage.getExtra());
+                    map.putInt("duration", sightMessage.getDuration());
                     map.putDouble("size", sightMessage.getSize());
                 }
                 break;
