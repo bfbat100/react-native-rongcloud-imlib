@@ -30,6 +30,7 @@ import io.rong.imlib.model.Message.SentStatus;
 import io.rong.imlib.typingmessage.TypingStatus;
 import io.rong.message.MediaMessageContent;
 import io.rong.message.RecallNotificationMessage;
+import io.rong.message.SightMessage;
 import io.rong.push.PushManager;
 import io.rong.push.PushType;
 import io.rong.push.RongPushClient;
@@ -167,6 +168,7 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
         RongIMClient.init(reactContext.getApplicationContext(), key);
         try {
             RongIMClient.registerMessageType(CustomizeMessage.class);
+            RongIMClient.registerMessageType(SightMessage.class);
         } catch (AnnotationNotFoundException e) {
             Log.e("AnnotationNotFoundExc", e.getMessage());
 //            RLog.e(this, "JSONException", e.getMessage());
