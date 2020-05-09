@@ -240,6 +240,35 @@ class Convert {
                 }
                 break;
             }
+            case "RC:SightMsg" :
+                if (content instanceof SightMessage){
+                    SightMessage sightMessage = (SightMessage) content;
+                    String local = "";
+                    Uri localUri = sightMessage.getLocalPath();
+                    if (localUri != null) {
+                        local = localUri.toString();
+                    }
+                    String remote = "";
+                    Uri remoteUri = sightMessage.getMediaUrl();
+                    if (remoteUri != null) {
+                        remote = remoteUri.toString();
+                    }
+                    String thumb = "";
+                    Uri thumbUri = sightMessage.getThumbUri();
+                    if (thumbUri != null){
+                        thumb = thumbUri.toString();
+                    }
+                    map.putString("local", local);
+                    map.putString("remote", remote);
+                    map.putString("thumb", thumb);
+                    map.putInt("thumb", sightMessage.getDuration());
+                    map.putString("extra", sightMessage.getExtra());
+                    map.putString("base64", sightMessage.getBase64());
+                    map.putString("base64", sightMessage.getBase64());
+                    map.putString("name", sightMessage.getName());
+                    map.putDouble("size", sightMessage.getSize());
+                }
+                break;
         }
         return map;
     }
