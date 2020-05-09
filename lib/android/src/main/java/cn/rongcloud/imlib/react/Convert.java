@@ -501,6 +501,10 @@ class Convert {
                     /* 自定义系统消息 */
                     messageContent = new CustomizeMessage(("{\"content\":"+ map.getString("content") +"\"extra\":"+ map.getString("extra")+"}").getBytes());
                     break;
+                case "RC:SightMsg":
+                    //小视频消息
+                    messageContent = SightMessage.obtain(Uri.parse(map.getString("local")),map.getInt("duration"));
+                    break;
                 }
         }
 
