@@ -12,6 +12,7 @@ RCT_EXPORT_METHOD(init : (NSString *)key) {
   [RCIMClient.sharedRCIMClient setRCLogInfoDelegate:self];
   [RCIMClient.sharedRCIMClient setRCTypingStatusDelegate:self];
   [RCIMClient.sharedRCIMClient registerMessageType:[RCCustomMessageContent class]];
+  [RCIMClient.sharedRCIMClient registerMessageType:[RCSightMessage class]];
 }
 
 RCT_EXPORT_METHOD(setDeviceToken : (NSString *)token) {
@@ -1771,6 +1772,23 @@ RCT_EXPORT_METHOD(getCurrentUserId
                @"content" : text.content ? text.content : @"",
                @"extra": text.extra ? text.extra : @""
                };
+  }else if ([content isKindOfClass:[RCSightMessage class]]){
+      RCSightMessage *sightMessage= (RCSightMessage *)content;
+      NSString *encodedImageStr = @"";
+      if(sightMessage.thumbnailImage){
+          NSData *data = UIImageJPEGRepresentation(sightMessage.thumbnailImage, 0.5f);
+          encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+      }
+      return @{
+          @"objectName" : @"RC:SightMsg",
+          @"local" : sightMessage.localPath ? sightMessage.localPath : @"",
+          @"remote" : sightMessage.sightUrl ? sightMessage.sightUrl : @"",
+          @"name" : sightMessage.name,
+          @"base64" : encodedImageStr,
+          @"duration" : @(sightMessage.duration),
+          @"size" : @(sightMessage.size),
+          @"extra" : sightMessage.extra ? sightMessage.extra : @"",
+      };
   }
 
   return @{@"error" : @"Content type not yet supported"};
@@ -1853,7 +1871,14 @@ RCT_EXPORT_METHOD(getCurrentUserId
   } else if ([objectName isEqualToString:@"system:noPush"]) {
        RCCustomMessageContent *text = [RCCustomMessageContent initWithMessageWithContent:content[@"content"] extra:content[@"extra"]];
        messageContent = text;
-   }
+      
+  }else if ([objectName isEqualToString:@"RC:SightMsg"]){
+      
+      NSData *thumbData = [[NSData alloc] initWithBase64EncodedString:content[@"thumb"] options:NSDataBase64DecodingIgnoreUnknownCharacters];
+      
+      RCSightMessage *message = [RCSightMessage messageWithLocalPath:content[@"local"] thumbnail:[UIImage imageWithData:thumbData] duration:[content[@"duration"] intValue]];
+      messageContent = message;
+  }
 
   if (messageContent) {
     NSDictionary *userInfo = content[@"userInfo"];
