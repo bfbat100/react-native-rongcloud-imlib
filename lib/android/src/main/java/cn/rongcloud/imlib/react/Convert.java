@@ -253,14 +253,14 @@ class Convert {
                     if (remoteUri != null) {
                         remote = remoteUri.toString();
                     }
-                    String thumb = "";
+                    String thumbnail = "";
                     Uri thumbUri = sightMessage.getThumbUri();
                     if (thumbUri != null){
-                        thumb = thumbUri.toString();
+                        thumbnail = thumbUri.toString();
                     }
                     map.putString("local", local);
                     map.putString("remote", remote);
-                    map.putString("thumb", thumb);
+                    map.putString("thumbnail", thumbnail);
                     map.putString("name", sightMessage.getName());
                     map.putString("extra", sightMessage.getExtra());
                     map.putInt("duration", sightMessage.getDuration());

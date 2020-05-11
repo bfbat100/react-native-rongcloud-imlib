@@ -1871,11 +1871,11 @@ RCT_EXPORT_METHOD(getCurrentUserId
   } else if ([objectName isEqualToString:@"system:noPush"]) {
        RCCustomMessageContent *text = [RCCustomMessageContent initWithMessageWithContent:content[@"content"] extra:content[@"extra"]];
        messageContent = text;
-      
+
   }else if ([objectName isEqualToString:@"RC:SightMsg"]){
-      
-      NSData *thumbData = [[NSData alloc] initWithBase64EncodedString:content[@"thumb"] options:NSDataBase64DecodingIgnoreUnknownCharacters];
-      
+
+      NSData *thumbData = [[NSData alloc] initWithBase64EncodedString:content[@"thumbnail"] options:NSDataBase64DecodingIgnoreUnknownCharacters];
+
       RCSightMessage *message = [RCSightMessage messageWithLocalPath:content[@"local"] thumbnail:[UIImage imageWithData:thumbData] duration:[content[@"duration"] intValue]];
       messageContent = message;
   }
