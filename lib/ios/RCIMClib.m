@@ -172,11 +172,12 @@ RCT_EXPORT_METHOD(sendDirectionalMessage
 }
 
 RCT_EXPORT_METHOD(recallMessage
-                  : (int)messageId
+                  : (NSDictionary *)msg
                   : (NSString *)pushContent
                   : (RCTPromiseResolveBlock)resolve
                   : (RCTPromiseRejectBlock)reject) {
-  RCMessage *message = [RCIMClient.sharedRCIMClient getMessage:messageId];
+  RCMessage *message = [RCIMClient.sharedRCIMClient getMessage:msg[@"messageId"]];
+  message.content = [self toMessageContent:msg[@"content"]];
   [RCIMClient.sharedRCIMClient recallMessage:message
       pushContent:pushContent
       success:^(long messageId) {

@@ -309,28 +309,23 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void recallMessage(int id, final String pushContent, final Promise promise) {
-        RongIMClient.getInstance().getMessage(id, new ResultCallback<Message>() {
-            @Override
-            public void onSuccess(Message message) {
-                RongIMClient.getInstance().recallMessage(message, pushContent, new ResultCallback<RecallNotificationMessage>() {
-                    @Override
-                    public void onSuccess(RecallNotificationMessage message) {
-                        promise.resolve(toJSON("RC:RcNtf", message));
-                    }
-
-                    @Override
-                    public void onError(ErrorCode errorCode) {
-                        reject(promise, errorCode);
-                    }
-                });
-            }
-
-            @Override
-            public void onError(ErrorCode errorCode) {
-                reject(promise, errorCode);
-            }
-        });
+    public void recallMessage(ReadableMap data, final String pushContent, final Promise promise) {
+        try {
+            Message message = toMessage(data);
+            RongIMClient.getInstance().recallMessage(message, pushContent, new ResultCallback<RecallNotificationMessage>() {
+                @Override
+                public void onSuccess(RecallNotificationMessage message) {
+                    promise.resolve(toJSON("RC:RcNtf", message));
+                }
+                @Override
+                public void onError(ErrorCode errorCode) {
+                    reject(promise, errorCode);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            onSendMessageError("recallMessage", null, ErrorCode.PARAMETER_ERROR, e.getMessage());
+        }
     }
 
     @ReactMethod
