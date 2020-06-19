@@ -1835,6 +1835,7 @@ RCT_EXPORT_METHOD(getCurrentUserId
     RCFileMessage *file = [RCFileMessage
         messageWithFile:[local stringByReplacingOccurrencesOfString:@"file://" withString:@""]];
     file.extra = content[@"extra"];
+    file.name = content[@"name"];
     messageContent = file;
   } else if ([objectName isEqualToString:@"RC:LBSMsg"]) {
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(
