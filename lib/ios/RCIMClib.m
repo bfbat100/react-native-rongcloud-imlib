@@ -13,6 +13,7 @@ RCT_EXPORT_METHOD(init : (NSString *)key) {
   [RCIMClient.sharedRCIMClient setRCTypingStatusDelegate:self];
   [RCIMClient.sharedRCIMClient registerMessageType:[RCCustomMessageContent class]];
   [RCIMClient.sharedRCIMClient registerMessageType:[RCSightMessage class]];
+  [RCIMClient.sharedRCIMClient registerMessageType:[RCSightMessage class]];
 }
 
 RCT_EXPORT_METHOD(setDeviceToken : (NSString *)token) {
@@ -172,12 +173,11 @@ RCT_EXPORT_METHOD(sendDirectionalMessage
 }
 
 RCT_EXPORT_METHOD(recallMessage
-                  : (NSDictionary *)msg
+                  : (int)messageId
                   : (NSString *)pushContent
                   : (RCTPromiseResolveBlock)resolve
                   : (RCTPromiseRejectBlock)reject) {
-  RCMessage *message = [RCIMClient.sharedRCIMClient getMessage:msg[@"messageId"]];
-  message.content = [self toMessageContent:msg[@"content"]];
+  RCMessage *message = [RCIMClient.sharedRCIMClient getMessage:messageId];
   [RCIMClient.sharedRCIMClient recallMessage:message
       pushContent:pushContent
       success:^(long messageId) {

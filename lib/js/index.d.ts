@@ -120,7 +120,7 @@ export declare function sendDirectionalMessage(message: SentMessage, userIdList:
  * @param messageId 消息 ID
  * @param pushContent 推送内容
  */
-export declare function recallMessage(message: Message, pushContent?: string): Promise<RecallNotificationMessage>;
+export declare function recallMessage(messageId: number, pushContent?: string): Promise<RecallNotificationMessage>;
 /**
  * 发送输入状态
  *
