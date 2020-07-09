@@ -531,7 +531,7 @@ class Convert {
                 case "RC:SightMsg":
                     //小视频消息
                     messageContent = SightMessage.obtain(Uri.parse(map.getString("local")),map.getInt("duration"));
-                    messageContent.setExtra(map.getString("extra"));
+                    ((SightMessage)messageContent).setExtra(map.getString("extra"));
                     break;
                 }
         }
