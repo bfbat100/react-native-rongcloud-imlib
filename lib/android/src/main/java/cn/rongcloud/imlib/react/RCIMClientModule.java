@@ -68,7 +68,15 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
                 return false;
             }
         });
-
+        RongIMClient.setOnRecallMessageListener(new OnRecallMessageListener() {
+            @Override
+            public boolean onMessageRecalled(Message message, RecallNotificationMessage recallNotificationMessage) {
+                message.setObjectName("RC:RcNtf");
+                message.setContent(recallNotificationMessage);
+                eventEmitter.emit("rcimlib-recall", toJSON(message));
+                return false;
+            }
+        });
         RongIMClient.setConnectionStatusListener(new ConnectionStatusListener() {
             @Override
             public void onChanged(ConnectionStatus status) {
@@ -135,13 +143,7 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
             }
         });
 
-        RongIMClient.setOnRecallMessageListener(new OnRecallMessageListener() {
-            @Override
-            public boolean onMessageRecalled(Message message, RecallNotificationMessage recall) {
-                eventEmitter.emit("rcimlib-recall", message.getMessageId());
-                return false;
-            }
-        });
+
     }
 
     @Nonnull
@@ -308,31 +310,29 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
         return value;
     }
 
-    @ReactMethod
-    public void recallMessage(int id, final String pushContent, final Promise promise) {
-        RongIMClient.getInstance().getMessage(id, new ResultCallback<Message>() {
-            @Override
-            public void onSuccess(Message message) {
-                RongIMClient.getInstance().recallMessage(message, pushContent, new ResultCallback<RecallNotificationMessage>() {
-                    @Override
-                    public void onSuccess(RecallNotificationMessage message) {
-                        promise.resolve(toJSON("RC:RcNtf", message));
-                    }
+   @ReactMethod
+       public void recallMessage(int id, final String pushContent, final Promise promise) {
+           RongIMClient.getInstance().getMessage(id, new ResultCallback<Message>() {
+               @Override
+               public void onSuccess(Message message) {
+                   RongIMClient.getInstance().recallMessage(message, pushContent, new ResultCallback<RecallNotificationMessage>() {
+                       @Override
+                       public void onSuccess(RecallNotificationMessage message) {
+                           promise.resolve(toJSON("RC:RcNtf", message));
+                       }
 
-                    @Override
-                    public void onError(ErrorCode errorCode) {
-                        reject(promise, errorCode);
-                    }
-                });
-            }
+                       @Override
+                       public void onError(ErrorCode errorCode) {
+                           reject(promise, errorCode);
+                       }
+                   });
+               }
 
-            @Override
-            public void onError(ErrorCode errorCode) {
-                reject(promise, errorCode);
-            }
-        });
-    }
-
+               @Override
+               public void onError(ErrorCode errorCode) {
+                   reject(promise, errorCode);
+               }
+           });
     @ReactMethod
     public void getHistoryMessages(
             int type, String targetId, String objectName, int oldestMessageId, int count, boolean isForward, final Promise promise) {

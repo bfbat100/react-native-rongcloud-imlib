@@ -13,6 +13,7 @@ RCT_EXPORT_METHOD(init : (NSString *)key) {
   [RCIMClient.sharedRCIMClient setRCTypingStatusDelegate:self];
   [RCIMClient.sharedRCIMClient registerMessageType:[RCCustomMessageContent class]];
   [RCIMClient.sharedRCIMClient registerMessageType:[RCSightMessage class]];
+  [RCIMClient.sharedRCIMClient registerMessageType:[RCSightMessage class]];
 }
 
 RCT_EXPORT_METHOD(setDeviceToken : (NSString *)token) {
