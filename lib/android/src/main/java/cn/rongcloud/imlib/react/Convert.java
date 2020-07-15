@@ -530,7 +530,27 @@ class Convert {
                     break;
                 case "RC:SightMsg":
                     //小视频消息
-                    messageContent = SightMessage.obtain(Uri.parse(map.getString("local")),map.getInt("duration"));
+                    String local = map.getString("local");
+                    if (TextUtils.isEmpty(local)){
+                        File file = new File(reactContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS),"abc.abc");
+                        if (!file.exists()){
+                            try {
+                                FileOutputStream fos = new FileOutputStream(file);
+                                fos.write("abc".getBytes());
+                                fos.flush();
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+
+                        String path = "file://" + file.getAbsolutePath();
+                        messageContent = SightMessage.obtain(Uri.parse(path),map.getInt("duration"));
+                    }else{
+                        messageContent = SightMessage.obtain(Uri.parse(map.getString("local")),map.getInt("duration"));
+                    }
                     ((SightMessage)messageContent).setExtra(map.getString("extra"));
                     break;
                 }
