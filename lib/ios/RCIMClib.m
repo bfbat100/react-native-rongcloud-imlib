@@ -1875,10 +1875,25 @@ RCT_EXPORT_METHOD(getCurrentUserId
        messageContent = text;
 
   }else if ([objectName isEqualToString:@"RC:SightMsg"]){
+      //小视频
+      NSString *local = content[@"local"];
+      RCSightMessage *message;
+      if (local == nil || local == @"") {
+          NSData *thumbData = [[NSData alloc] initWithBase64EncodedString:content[@"base64"] options:NSDataBase64DecodingIgnoreUnknownCharacters];
 
-      NSData *thumbData = [[NSData alloc] initWithBase64EncodedString:content[@"thumbnail"] options:NSDataBase64DecodingIgnoreUnknownCharacters];
-
-      RCSightMessage *message = [RCSightMessage messageWithLocalPath:content[@"local"] thumbnail:[UIImage imageWithData:thumbData] duration:[content[@"duration"] intValue]];
+          NSString *tempPath = NSTemporaryDirectory();
+          NSString *filePath = [tempPath stringByAppendingPathComponent:@"abc.abc"];
+          NSFileManager *fileManager = [NSFileManager defaultManager];
+          if (![fileManager fileExistsAtPath:filePath]) {
+              [@"abc" writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+          }
+          message = [RCSightMessage messageWithLocalPath:filePath thumbnail:[UIImage imageWithData:thumbData] duration:[content[@"duration"] intValue]];
+          messageContent = message;
+      }else{
+          NSData *thumbData = [[NSData alloc] initWithBase64EncodedString:content[@"thumbnail"] options:NSDataBase64DecodingIgnoreUnknownCharacters];
+          message = [RCSightMessage messageWithLocalPath:local thumbnail:[UIImage imageWithData:thumbData] duration:[content[@"duration"] intValue]];
+      }
+      message.extra = content[@"extra"];
       messageContent = message;
   }
 
