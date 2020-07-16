@@ -1889,7 +1889,7 @@ RCT_EXPORT_METHOD(getCurrentUserId
           message = [RCSightMessage messageWithLocalPath:filePath thumbnail:[UIImage imageWithData:thumbData] duration:[content[@"duration"] intValue]];
           messageContent = message;
       }else{
-          NSData *thumbData = [[NSData alloc] initWithBase64EncodedString:content[@"thumbnail"] options:NSDataBase64DecodingIgnoreUnknownCharacters];
+          NSData *thumbData = [NSData dataWithContentsOfFile: content[@"thumbnail"]];
           message = [RCSightMessage messageWithLocalPath:local thumbnail:[UIImage imageWithData:thumbData] duration:[content[@"duration"] intValue]];
       }
       message.extra = content[@"extra"];
