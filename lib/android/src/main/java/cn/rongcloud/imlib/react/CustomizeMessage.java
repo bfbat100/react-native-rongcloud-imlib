@@ -48,7 +48,7 @@ public class CustomizeMessage extends MessageContent {
     }
 
     public String getContent(){
-            Log.e("CustomizeMessage", "CustomizeMessage getContent");
+//             Log.e("CustomizeMessage", "CustomizeMessage getContent");
         return content;
     }
 
@@ -67,7 +67,7 @@ public class CustomizeMessage extends MessageContent {
         } catch (UnsupportedEncodingException e1) {
 
         }
-            Log.e("CustomizeMessage", "CustomizeMessage 1");
+//             Log.e("CustomizeMessage", "CustomizeMessage 1");
         try {
             JSONObject jsonObj = new JSONObject(jsonStr);
             if (jsonObj.has("content")){
@@ -84,7 +84,7 @@ public class CustomizeMessage extends MessageContent {
      * 给消息赋值。
      */
     public CustomizeMessage(Parcel in) {
-            Log.e("CustomizeMessage", "CustomizeMessage 2");
+//             Log.e("CustomizeMessage", "CustomizeMessage 2");
         this.content = ParcelUtils.readFromParcel(in);//该类为工具类，消息属性
         this.extra = ParcelUtils.readFromParcel(in);//该类为工具类，消息属性TODO
         //这里可继续增加你消息的属性

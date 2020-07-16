@@ -1,7 +1,7 @@
 package cn.rongcloud.imlib.react;
 
 import android.net.Uri;
-import android.os.Parcel;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.facebook.react.bridge.*;
@@ -14,8 +14,12 @@ import io.rong.imlib.typingmessage.TypingStatusMessage;
 import io.rong.message.*;
 import io.rong.push.PushType;
 import io.rong.push.notification.PushNotificationMessage;
-import cn.rongcloud.imlib.react.CustomizeMessage;
 
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
