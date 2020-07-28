@@ -447,6 +447,26 @@ RCT_EXPORT_METHOD(deleteMessages
       }];
 }
 
+RCT_EXPORT_METHOD(deleteRemoteMessages
+                  : (int)conversationType
+                  : (NSString *)targetId
+                  : (NSArray *)messages
+                  : (RCTPromiseResolveBlock)resolve
+                  : (RCTPromiseRejectBlock)reject) {
+    NSMutableArray *tmpArr = [NSMutableArray new];
+    for (NSNumber *number in messages ) {
+      RCMessage *message = [RCIMClient.sharedRCIMClient getMessage:[number intValue]];
+        if (message) {
+            [tmpArr addObject:message];
+        }
+    }
+    [RCIMClient.sharedRCIMClient deleteRemoteMessage:conversationType targetId:targetId messages:tmpArr success:^{
+      resolve(@(true));
+    } error:^(RCErrorCode status) {
+      [self reject:reject error:status];
+    }];
+}
+
 RCT_EXPORT_METHOD(getRemoteHistoryMessages
                   : (int)conversationType
                   : (NSString *)targetId

@@ -444,6 +444,37 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void deleteRemoteMessages(final int type, final String targetId, ReadableArray messages, final Promise promise) {
+        Message[] array = new Message[messages.size()];
+        for (int i = 0; i < messages.size(); i += 1) {
+            ReadableMap message = messages.getMap(i);
+            if (message == null) {
+                array[i] = null;
+            } else {
+                Message msg = toMessage(message);
+                msg.setUId(message.getString("messageUId"));
+                msg.setMessageId(message.getInt("messageId"));
+                msg.setMessageDirection(Message.MessageDirection.setValue(message.getInt("messageDirection")));
+                msg.setObjectName(message.getString("objectName"));
+                msg.setSentTime((long) message.getDouble("sentTime"));
+                msg.setReceivedTime((long) message.getDouble("receivedTime"));
+                array[i] = msg;
+            }
+        }
+        RongIMClient.getInstance().deleteRemoteMessages(ConversationType.setValue(type), targetId, array, new OperationCallback() {
+            @Override
+            public void onSuccess() {
+                promise.resolve(true);
+            }
+
+            @Override
+            public void onError(RongIMClient.ErrorCode errorCode) {
+                reject(promise, errorCode);
+            }
+        });
+    }
+
+    @ReactMethod
     public void searchConversations(String keyword, ReadableArray types, ReadableArray objectNames, final Promise promise) {
         ConversationType[] conversationTypes = toConversationTypeArray(types);
         String[] objectNamesArray = toStringArray(objectNames);

@@ -53,6 +53,7 @@ class Convert {
     static WritableMap toJSON(String objectName, MessageContent content) {
         WritableMap map = Arguments.createMap();
         map.putString("objectName", objectName);
+        if(objectName == null) return map;
         switch (objectName) {
             case "RC:TxtMsg":
                 if (content instanceof TextMessage){
@@ -282,12 +283,12 @@ class Convert {
         map.putString("targetId", message.getTargetId());
         map.putString("messageUId", message.getUId());
         map.putInt("messageId", message.getMessageId());
-        map.putInt("messageDirection", message.getMessageDirection().getValue());
+        map.putInt("messageDirection", message.getMessageDirection() == null ? 0 : message.getMessageDirection().getValue());
         map.putString("senderUserId", message.getSenderUserId());
         map.putDouble("sentTime", (double) message.getSentTime());
         map.putDouble("receivedTime", (double) message.getReceivedTime());
-        map.putInt("sentStatus", message.getSentStatus().getValue());
-        map.putInt("receivedStatus", message.getReceivedStatus().getFlag());
+        map.putInt("sentStatus", message.getSentStatus() == null ? 0 : message.getSentStatus().getValue());
+        map.putInt("receivedStatus", message.getReceivedStatus() == null ? 0 : message.getReceivedStatus().getFlag());
         map.putString("extra", message.getExtra());
         map.putString("objectName", message.getObjectName());
         String objectName = message.getObjectName();
