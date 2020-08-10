@@ -1897,8 +1897,11 @@ RCT_EXPORT_METHOD(getCurrentUserId
   }else if ([objectName isEqualToString:@"RC:SightMsg"]){
       //小视频
       NSString *local = content[@"local"];
+      NSString *remote =content[@"remote"];
+
       RCSightMessage *message;
-      if (local == nil || local == @"") {
+      if (local == nil || [local  isEqual: @""]) {
+          //转发
           NSData *thumbData = [[NSData alloc] initWithBase64EncodedString:content[@"base64"] options:NSDataBase64DecodingIgnoreUnknownCharacters];
 
           NSString *tempPath = NSTemporaryDirectory();
@@ -1908,8 +1911,12 @@ RCT_EXPORT_METHOD(getCurrentUserId
               [@"abc" writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
           }
           message = [RCSightMessage messageWithLocalPath:filePath thumbnail:[UIImage imageWithData:thumbData] duration:[content[@"duration"] intValue]];
-          messageContent = message;
+      }else if([remote  isEqual: @""] && [content.allKeys containsObject:@"base64"] && ![content.allKeys containsObject:@"thumbnail"]){
+          //重发
+          NSData *thumbData = [[NSData alloc] initWithBase64EncodedString:content[@"base64"] options:NSDataBase64DecodingIgnoreUnknownCharacters];
+          message = [RCSightMessage messageWithLocalPath:local thumbnail:[UIImage imageWithData:thumbData] duration:[content[@"duration"] intValue]];
       }else{
+          //正常发送
           NSData *thumbData = [NSData dataWithContentsOfFile: content[@"thumbnail"]];
           message = [RCSightMessage messageWithLocalPath:local thumbnail:[UIImage imageWithData:thumbData] duration:[content[@"duration"] intValue]];
       }
