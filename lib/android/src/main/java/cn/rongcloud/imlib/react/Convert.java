@@ -7,6 +7,9 @@ import android.util.Log;
 
 import com.facebook.react.bridge.*;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import io.rong.imlib.CustomServiceConfig;
 import io.rong.imlib.model.*;
 import io.rong.imlib.model.Conversation.ConversationType;
@@ -468,9 +471,21 @@ class Convert {
                     }
                     break;
                 case "RC:FileMsg":
-                    messageContent = FileMessage.obtain(Utils.getFileUri(reactContext, map.getString("local")));
+                    messageContent = FileMessage.obtain(Utils.getFileUri(reactContext,map.getString("local")));
                     if (map.hasKey("extra")) {
-                        ((FileMessage) messageContent).setExtra(map.getString("extra"));
+                        String extra = map.getString("extra");
+                        try {
+                            JSONObject jsonObject = new JSONObject(extra);
+                            if (jsonObject.has("content")){
+                                JSONObject contentJsonObject = jsonObject.getJSONObject("content");
+                                if (contentJsonObject.has("name")){
+                                    ((FileMessage) messageContent).setName(contentJsonObject.getString("name"));
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        ((FileMessage) messageContent).setExtra(extra);
                     }
                     break;
                 case "RC:LBSMsg":
