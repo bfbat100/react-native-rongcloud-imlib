@@ -1800,15 +1800,18 @@ RCT_EXPORT_METHOD(getCurrentUserId
           NSData *data = UIImageJPEGRepresentation(sightMessage.thumbnailImage, 0.5f);
           encodedImageStr = [data base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
       }
+
+      NSString *extra = sightMessage.extra ? sightMessage.extra : @"";
+
       return @{
           @"objectName" : @"RC:SightMsg",
           @"local" : sightMessage.localPath ? sightMessage.localPath : @"",
           @"remote" : sightMessage.sightUrl ? sightMessage.sightUrl : @"",
           @"name" : sightMessage.name,
-          @"base64" : encodedImageStr,
+          @"base64" : [extra containsString:@"base64"] ? @"" : encodedImageStr,
           @"duration" : @(sightMessage.duration),
           @"size" : @(sightMessage.size),
-          @"extra" : sightMessage.extra ? sightMessage.extra : @"",
+          @"extra" : extra,
       };
   }
 
