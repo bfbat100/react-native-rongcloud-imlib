@@ -472,7 +472,7 @@ class Convert {
                     break;
                 case "RC:FileMsg":
                     messageContent = FileMessage.obtain(Utils.getFileUri(reactContext,map.getString("local")));
-                    if (map.hasKey("extra")) {
+                    if (map.hasKey("extra") && map.getString("extra") != null) {
                         String extra = map.getString("extra");
                         try {
                             JSONObject jsonObject = new JSONObject(extra);
