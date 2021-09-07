@@ -19,7 +19,7 @@ Pod::Spec.new do |s|
 
 
   s.dependency "React"
-  s.dependency 'RongCloudIM/IMLib', '2.10.4'
+  s.dependency 'RongCloudIM/IMLib', '4.1.1.7'
   #s.dependency "others"
   #s.frameworks =
 end

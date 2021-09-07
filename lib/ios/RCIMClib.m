@@ -38,27 +38,57 @@ RCT_EXPORT_METHOD(getConnectionStatus
   resolve(@([RCIMClient.sharedRCIMClient getConnectionStatus]));
 }
 
-RCT_EXPORT_METHOD(connect : (NSString *)token : (NSString *)eventId) {
-  [RCIMClient.sharedRCIMClient connectWithToken:token
-      success:^(NSString *userId) {
+RCT_EXPORT_METHOD(connect : (NSString *)token : (NSString *)eventId)
+{
+
+    // 4.x 版本连接方法
+    [RCIMClient.sharedRCIMClient connectWithToken:token dbOpened:^(RCDBErrorCode code) {
+
+    } success:^(NSString *userId) {
         [self sendEventWithName:@"rcimlib-connect"
                            body:@{@"type" : @"success", @"eventId" : eventId, @"userId" : userId}];
-      }
-      error:^(RCConnectErrorCode code) {
-        [self sendEventWithName:@"rcimlib-connect"
-                           body:@{
-                             @"type" : @"error",
-                             @"eventId" : eventId,
-                             @"errorCode" : @(code)
-                           }];
-      }
-      tokenIncorrect:^{
-        [self sendEventWithName:@"rcimlib-connect"
-                           body:@{
-                             @"type" : @"tokenIncorrect",
-                             @"eventId" : eventId,
-                           }];
-      }];
+    } error:^(RCConnectErrorCode errorCode) {
+        if (errorCode == RC_CONN_TOKEN_INCORRECT) {
+            //从 APP 服务获取新 token，并重连
+            [self sendEventWithName:@"rcimlib-connect"
+                               body:@{
+                                   @"type" : @"tokenIncorrect",
+                                   @"eventId" : eventId,
+                               }];
+        } else {
+            //无法连接到 IM 服务器，请根据相应的错误码作出对应处理
+            [self sendEventWithName:@"rcimlib-connect"
+                               body:@{
+                                   @"type" : @"error",
+                                   @"eventId" : eventId,
+                                   @"errorCode" : @(errorCode)
+                               }];
+        }
+    }];
+
+    /*
+     // 2.x 版本方法
+      [RCIMClient.sharedRCIMClient connectWithToken:token
+          success:^(NSString *userId) {
+            [self sendEventWithName:@"rcimlib-connect"
+                               body:@{@"type" : @"success", @"eventId" : eventId, @"userId" : userId}];
+          }
+          error:^(RCConnectErrorCode code) {
+            [self sendEventWithName:@"rcimlib-connect"
+                               body:@{
+                                 @"type" : @"error",
+                                 @"eventId" : eventId,
+                                 @"errorCode" : @(code)
+                               }];
+          }
+          tokenIncorrect:^{
+            [self sendEventWithName:@"rcimlib-connect"
+                               body:@{
+                                 @"type" : @"tokenIncorrect",
+                                 @"eventId" : eventId,
+                               }];
+          }];
+     */
 }
 
 RCT_EXPORT_METHOD(disconnect : (BOOL)isReceivePush) {

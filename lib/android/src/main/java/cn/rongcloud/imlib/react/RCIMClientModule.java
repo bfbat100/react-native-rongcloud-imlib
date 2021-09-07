@@ -1,12 +1,5 @@
 package cn.rongcloud.imlib.react;
 import android.util.Log;
-
-import android.app.Activity;
-import android.app.Application;
-import org.json.JSONException;
-import org.json.JSONObject;
-import io.rong.imlib.AnnotationNotFoundException;
-
 import com.facebook.react.bridge.*;
 import com.facebook.react.modules.core.DeviceEventManagerModule.RCTDeviceEventEmitter;
 import io.rong.imlib.CustomServiceConfig;
@@ -31,16 +24,9 @@ import io.rong.imlib.typingmessage.TypingStatus;
 import io.rong.message.MediaMessageContent;
 import io.rong.message.RecallNotificationMessage;
 import io.rong.message.SightMessage;
-import io.rong.push.PushManager;
-import io.rong.push.PushType;
 import io.rong.push.RongPushClient;
-import io.rong.push.common.RLog;
-import io.rong.push.platform.hms.HMSAgent;
-import io.rong.push.platform.hms.HWPush;
-import io.rong.push.platform.hms.common.handler.ConnectHandler;
-import io.rong.push.platform.hms.push.handler.GetTokenHandler;
 import io.rong.push.pushconfig.PushConfig;
-import cn.rongcloud.imlib.react.CustomizeMessage;
+
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -171,15 +157,16 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
         try {
             RongIMClient.registerMessageType(CustomizeMessage.class);
             RongIMClient.registerMessageType(SightMessage.class);
-        } catch (AnnotationNotFoundException e) {
-            Log.e("AnnotationNotFoundExc", e.getMessage());
+        } catch (Exception e) {
+            Log.e("init Exception", e.getMessage());
 //            RLog.e(this, "JSONException", e.getMessage());
         }
     }
 
     @ReactMethod
     public void connect(String token, final String eventId) {
-        RongIMClient.connect(token, new RongIMClient.ConnectCallback() {
+        RongIMClient.connect(token,new RongIMClient.ConnectCallback(){
+
             @Override
             public void onSuccess(String userId) {
                 WritableMap map = createEventMap(eventId, "success");
@@ -188,16 +175,22 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
             }
 
             @Override
-            public void onError(RongIMClient.ErrorCode error) {
-                WritableMap map = createEventMap(eventId, "error");
-                map.putInt("errorCode", error.getValue());
-                map.putString("errorMessage", error.getMessage());
-                eventEmitter.emit("rcimlib-connect", map);
+            public void onError(ConnectionErrorCode connectionErrorCode) {
+                if(connectionErrorCode.equals(RongIMClient.ConnectionErrorCode.RC_CONN_TOKEN_INCORRECT)) {
+                    //从 APP 服务获取新 token，并重连
+                    eventEmitter.emit("rcimlib-connect", createEventMap(eventId, "tokenIncorrect"));
+                }  else {
+                    //无法连接 IM 服务器，请根据相应的错误码作出对应处理
+                    WritableMap map = createEventMap(eventId, "error");
+                    map.putInt("errorCode", connectionErrorCode.getValue());
+                    map.putString("errorMessage", "请参考错误码");
+                    eventEmitter.emit("rcimlib-connect", map);
+                }
             }
 
             @Override
-            public void onTokenIncorrect() {
-                eventEmitter.emit("rcimlib-connect", createEventMap(eventId, "tokenIncorrect"));
+            public void onDatabaseOpened(DatabaseOpenStatus databaseOpenStatus) {
+
             }
         });
     }
