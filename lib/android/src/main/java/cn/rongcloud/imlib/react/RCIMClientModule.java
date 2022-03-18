@@ -164,7 +164,7 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void YHinit(String key) {
+    public void YH2Binit(String key) {
     // 新sdk不需要改域名
 //        // 融云的导航服务的 nav.cn.ronghub.com 域名遭受到了污染，无法正常解析到我们的业务服务器。
 //        // 为了保证业务尽快恢复，建议您继续使用现有版本 SDK，紧急替换 SDK 域名，并且引导客户升级包含新域名的 App。

@@ -7,6 +7,12 @@ export * from "./types";
  */
 export declare function init(appKey: string): void;
 /**
+ * 初始化 SDK，只需要调用一次: 易货商家
+ *
+ * @param appKey 从融云开发者平台创建应用后获取到的 App Key
+ */
+export declare function YH2Binit(appKey: string): void;
+/**
  * 添加日志信息监听函数
  *
  * @param listener
