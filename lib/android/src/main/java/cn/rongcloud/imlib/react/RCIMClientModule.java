@@ -164,6 +164,31 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void YHinit(String key) {
+    // 新sdk不需要改域名
+//        // 融云的导航服务的 nav.cn.ronghub.com 域名遭受到了污染，无法正常解析到我们的业务服务器。
+//        // 为了保证业务尽快恢复，建议您继续使用现有版本 SDK，紧急替换 SDK 域名，并且引导客户升级包含新域名的 App。
+//        RongIMClient.setServerInfo("nav2-cn.ronghub.com", "up.qbox.me");
+        eventEmitter = reactContext.getJSModule(RCTDeviceEventEmitter.class);
+        RCPushReceiver.eventEmitter = eventEmitter;
+        PushConfig config = new PushConfig.Builder()
+            .enableMiPush("2882303761520136303", "5202013651303") //配置小米推送
+            .enableHWPush(true)  // 配置华为推送
+            .enableVivoPush(true)  // 配置vivo推送
+            .enableOppoPush("0e5957a044ab43388b8f8a06303b73f1", "f041ed5866eb4416ad8fb9eba022f4af")  // 配置oppo推送
+            .build();
+        RongPushClient.setPushConfig(config);
+        RongIMClient.init(reactContext.getApplicationContext(), key);
+        try {
+            RongIMClient.registerMessageType(CustomizeMessage.class);
+            RongIMClient.registerMessageType(SightMessage.class);
+        } catch (Exception e) {
+            Log.e("init Exception", e.getMessage());
+//            RLog.e(this, "JSONException", e.getMessage());
+        }
+    }
+
+    @ReactMethod
     public void connect(String token, final String eventId) {
         RongIMClient.connect(token,new RongIMClient.ConnectCallback(){
 
