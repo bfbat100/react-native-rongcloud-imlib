@@ -50,7 +50,8 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
                 WritableMap map = Arguments.createMap();
                 map.putMap("message", toJSON(message));
                 map.putInt("left", left);
-                eventEmitter.emit("rcimlib-receive-message", map);
+                emitEvent("rcimlib-receive-message", map);
+
                 return false;
             }
         });
@@ -59,14 +60,14 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
             public boolean onMessageRecalled(Message message, RecallNotificationMessage recallNotificationMessage) {
                 message.setObjectName("RC:RcNtf");
                 message.setContent(recallNotificationMessage);
-                eventEmitter.emit("rcimlib-recall", toJSON(message));
+                emitEvent("rcimlib-recall", toJSON(message));
                 return false;
             }
         });
         RongIMClient.setConnectionStatusListener(new ConnectionStatusListener() {
             @Override
             public void onChanged(ConnectionStatus status) {
-                eventEmitter.emit("rcimlib-connection-status", status.getValue());
+                emitEvent("rcimlib-connection-status", status.getValue());
             }
         });
 
@@ -82,9 +83,9 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
                     map.putString("userId", status.getUserId());
                     map.putDouble("sentTime", status.getSentTime());
                     map.putString("typingContentType", status.getTypingContentType());
-                    eventEmitter.emit("rcimlib-typing-status", map);
+                    emitEvent("rcimlib-typing-status", map);
                 } else {
-                    eventEmitter.emit("rcimlib-typing-status", map);
+                    emitEvent("rcimlib-typing-status", map);
                 }
             }
         });
@@ -92,7 +93,7 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
         RongIMClient.setReadReceiptListener(new ReadReceiptListener() {
             @Override
             public void onReadReceiptReceived(Message message) {
-                eventEmitter.emit("rcimlib-read-receipt-received", toJSON(message));
+                emitEvent("rcimlib-read-receipt-received", toJSON(message));
             }
 
             @Override
@@ -101,7 +102,7 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
                 map.putInt("conversationType", conversationType.getValue());
                 map.putString("targetId", targetId);
                 map.putString("messageUId", UId);
-                eventEmitter.emit("rcimlib-receipt-request", map);
+                emitEvent("rcimlib-receipt-request", map);
             }
 
             @Override
@@ -118,18 +119,26 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
                 map.putString("targetId", targetId);
                 map.putString("messageUId", UId);
                 map.putMap("usesIdList", userIdList);
-                eventEmitter.emit("rcimlib-receipt-response", map);
+                emitEvent("rcimlib-receipt-response", map);
             }
         });
 
         RongIMClient.setRCLogInfoListener(new RCLogInfoListener() {
             @Override
             public void onRCLogInfoOccurred(String log) {
-                eventEmitter.emit("rcimlib-log", log);
+                emitEvent("rcimlib-log", log);
             }
         });
 
 
+    }
+
+    private void emitEvent(String eventName,Object event){
+        try {
+            eventEmitter.emit(eventName, event);
+        }catch (Exception e){
+          e.printStackTrace();
+        }
     }
 
     @Nonnull
@@ -196,20 +205,20 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
             public void onSuccess(String userId) {
                 WritableMap map = createEventMap(eventId, "success");
                 map.putString("userId", userId);
-                eventEmitter.emit("rcimlib-connect", map);
+                emitEvent("rcimlib-connect", map);
             }
 
             @Override
             public void onError(ConnectionErrorCode connectionErrorCode) {
                 if(connectionErrorCode.equals(RongIMClient.ConnectionErrorCode.RC_CONN_TOKEN_INCORRECT)) {
                     //从 APP 服务获取新 token，并重连
-                    eventEmitter.emit("rcimlib-connect", createEventMap(eventId, "tokenIncorrect"));
+                    emitEvent("rcimlib-connect", createEventMap(eventId, "tokenIncorrect"));
                 }  else {
                     //无法连接 IM 服务器，请根据相应的错误码作出对应处理
                     WritableMap map = createEventMap(eventId, "error");
                     map.putInt("errorCode", connectionErrorCode.getValue());
                     map.putString("errorMessage", "请参考错误码");
-                    eventEmitter.emit("rcimlib-connect", map);
+                    emitEvent("rcimlib-connect", map);
                 }
             }
 
@@ -268,14 +277,14 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
 
             @Override
             public void onCanceled(Message message) {
-                eventEmitter.emit("rcimlib-send-message", createEventMap(eventId, "cancel"));
+                emitEvent("rcimlib-send-message", createEventMap(eventId, "cancel"));
             }
 
             @Override
             public void onSuccess(Message message) {
                 WritableMap map = createEventMap(eventId, "success");
                 map.putInt("messageId", message.getMessageId());
-                eventEmitter.emit("rcimlib-send-message", map);
+                emitEvent("rcimlib-send-message", map);
             }
 
             @Override
@@ -288,7 +297,7 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
                 WritableMap map = createEventMap(eventId, "progress");
                 map.putInt("messageId", message.getMessageId());
                 map.putInt("progress", i);
-                eventEmitter.emit("rcimlib-send-message", map);
+                emitEvent("rcimlib-send-message", map);
             }
         };
     }
@@ -317,7 +326,7 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
         if (message != null) {
             map.putInt("messageId", message.getMessageId());
         }
-        eventEmitter.emit("rcimlib-send-message", map);
+        emitEvent("rcimlib-send-message", map);
     }
 
     private String getStringFromMap(ReadableMap map, String key) {
@@ -954,26 +963,26 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
                         MediaMessageContent media = (MediaMessageContent) message.getContent();
                         WritableMap map = createEventMap(eventId, "success");
                         map.putString("path", media.getLocalPath().toString());
-                        eventEmitter.emit("rcimlib-download-media-message", map);
+                        emitEvent("rcimlib-download-media-message", map);
                     }
 
                     @Override
                     public void onProgress(Message message, int i) {
                         WritableMap map = createEventMap(eventId, "progress");
                         map.putInt("progress", i);
-                        eventEmitter.emit("rcimlib-download-media-message", map);
+                        emitEvent("rcimlib-download-media-message", map);
                     }
 
                     @Override
                     public void onError(Message message, ErrorCode errorCode) {
                         WritableMap map = createEventMap(eventId, "error");
                         map.putInt("errorCode", errorCode.getValue());
-                        eventEmitter.emit("rcimlib-download-media-message", map);
+                        emitEvent("rcimlib-download-media-message", map);
                     }
 
                     @Override
                     public void onCanceled(Message message) {
-                        eventEmitter.emit("rcimlib-download-media-message", createEventMap(eventId, "cancel"));
+                        emitEvent("rcimlib-download-media-message", createEventMap(eventId, "cancel"));
                     }
                 });
             }
@@ -1209,7 +1218,7 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
             public void onSuccess(CustomServiceConfig customServiceConfig) {
                 WritableMap map = createEventMap(eventId, "success");
                 map.putMap("config", toJSON(customServiceConfig));
-                eventEmitter.emit("rcimlib-customer-service", map);
+                emitEvent("rcimlib-customer-service", map);
             }
 
             @Override
@@ -1217,28 +1226,28 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
                 WritableMap map = createEventMap(eventId, "error");
                 map.putInt("errorCode", errorCode);
                 map.putString("errorMessage", message);
-                eventEmitter.emit("rcimlib-customer-service", map);
+                emitEvent("rcimlib-customer-service", map);
             }
 
             @Override
             public void onModeChanged(CustomServiceMode customServiceMode) {
                 WritableMap map = createEventMap(eventId, "mode-changed");
                 map.putInt("mode", customServiceMode.getValue());
-                eventEmitter.emit("rcimlib-customer-service", map);
+                emitEvent("rcimlib-customer-service", map);
             }
 
             @Override
             public void onQuit(String message) {
                 WritableMap map = createEventMap(eventId, "quit");
                 map.putString("message", message);
-                eventEmitter.emit("rcimlib-customer-service", map);
+                emitEvent("rcimlib-customer-service", map);
             }
 
             @Override
             public void onPullEvaluation(String dialogId) {
                 WritableMap map = createEventMap(eventId, "pull-evaluation");
                 map.putString("dialogId", dialogId);
-                eventEmitter.emit("rcimlib-customer-service", map);
+                emitEvent("rcimlib-customer-service", map);
             }
 
             @Override
@@ -1252,7 +1261,7 @@ public class RCIMClientModule extends ReactContextBaseJavaModule {
                     group.putBoolean("isOnline", item.getOnline());
                 }
                 map.putArray("groups", groups);
-                eventEmitter.emit("rcimlib-customer-service", map);
+                emitEvent("rcimlib-customer-service", map);
             }
         }, toCSCustomServiceInfo(csInfo));
     }
