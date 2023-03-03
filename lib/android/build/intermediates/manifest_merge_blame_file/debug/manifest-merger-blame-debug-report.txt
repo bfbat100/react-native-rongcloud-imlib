@@ -1,0 +1,137 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    xmlns:tools="http://schemas.android.com/tools"
+4    package="cn.rongcloud.imlib.react" >
+5
+6    <uses-sdk
+7        android:minSdkVersion="16"
+7-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml
+8        android:targetSdkVersion="23" />
+8-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml
+9
+10    <!-- 保存图片，拍照等 -->
+11    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+11-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:5:3-78
+11-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:5:20-76
+12    <!-- 网络 -->
+13    <uses-permission android:name="android.permission.INTERNET" />
+13-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:7:3-64
+13-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:7:20-62
+14    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+14-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:8:3-76
+14-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:8:20-74
+15    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+15-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:9:3-73
+15-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:9:20-71
+16    <!-- 消息通道保活 -->
+17    <uses-permission android:name="android.permission.WAKE_LOCK" />
+17-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:11:3-65
+17-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:11:20-63
+18    <!-- 定位，如果您不需要定位相关的功能，可以删掉 -->
+19    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+19-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:13:3-76
+19-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:13:20-74
+20    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+20-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:14:3-78
+20-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:14:20-76
+21
+22    <application>
+22-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:16:3-70:17
+23
+24        <!-- imlib config begin -->
+25        <service
+25-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:19:5-22:31
+26            android:name="io.rong.imlib.ipc.RongService"
+26-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:20:7-51
+27            android:exported="true"
+27-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:21:7-30
+28            android:process=":ipc" />
+28-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:22:7-29
+29
+30        <receiver
+30-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:24:5-26:32
+31            android:name="io.rong.imlib.ConnectChangeReceiver"
+31-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:25:7-57
+32            android:exported="true" />
+32-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:26:7-30
+33        <receiver
+33-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:28:5-30:31
+34            android:name="io.rong.imlib.HeartbeatReceiver"
+34-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:29:7-53
+35            android:process=":ipc" />
+35-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:30:7-29
+36        <!-- imlib config end -->
+37
+38
+39        <!-- 必选： SDK 核心功能 -->
+40        <service
+40-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:34:5-38:39
+41            android:name="io.rong.push.rongpush.PushService"
+41-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:35:7-55
+42            android:exported="true"
+42-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:36:7-30
+43            android:permission="android.permission.BIND_JOB_SERVICE"
+43-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:37:7-63
+44            android:process="io.rong.push" />
+44-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:38:7-37
+45
+46        <!-- push 相关事件接收器 -->
+47        <receiver
+47-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:41:5-56:16
+48            android:name="io.rong.push.rongpush.PushReceiver"
+48-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:42:7-56
+49            android:process="io.rong.push" > <!-- 此处进程可以改名，名称需要和PushService所在进程统一 -->
+49-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:43:7-37
+50            <!-- 心跳事件和网络切换事件监听,必须 -->
+51            <intent-filter>
+51-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:45:7-48:23
+52                <action android:name="io.rong.push.intent.action.HEART_BEAT" />
+52-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:46:9-71
+52-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:46:17-69
+53                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+53-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:47:9-70
+53-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:47:17-68
+54            </intent-filter>
+55
+56            <!-- 部分用户事件监听, 用来提高推送拉活率; 可移除 -->
+57            <intent-filter>
+57-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:51:7-55:23
+58                <action android:name="android.intent.action.USER_PRESENT" />
+58-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:52:9-68
+58-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:52:17-66
+59                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+59-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:53:9-78
+59-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:53:17-76
+60                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+60-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:54:9-81
+60-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:54:17-79
+61            </intent-filter>
+62        </receiver>
+63
+64        <!-- 必选： SDK 核心功能 -->
+65
+66
+67        <!-- end -->
+68
+69        <receiver
+69-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:62:5-69:16
+70            android:name="cn.rongcloud.imlib.react.RCPushReceiver"
+70-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:63:7-37
+71            tools:ignore="ExportedReceiver" >
+71-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:63:38-69
+72            <intent-filter>
+72-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:64:7-68:23
+73                <action android:name="io.rong.push.intent.MESSAGE_ARRIVED" />
+73-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:65:9-69
+73-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:65:17-67
+74                <action android:name="io.rong.push.intent.MESSAGE_CLICKED" />
+74-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:66:9-69
+74-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:66:17-67
+75                <action android:name="io.rong.push.intent.THIRD_PARTY_PUSH_STATE" />
+75-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:67:9-76
+75-->/Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:67:17-74
+76            </intent-filter>
+77        </receiver>
+78    </application>
+79
+80</manifest>

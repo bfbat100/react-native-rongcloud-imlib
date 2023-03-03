@@ -1,0 +1,137 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:1:1-71:12
+INJECTED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:1:1-71:12
+INJECTED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:1:1-71:12
+	package
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:2:58-92
+		INJECTED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml
+		INJECTED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml
+	xmlns:tools
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:2:11-57
+	xmlns:android
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:1:11-69
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:5:3-78
+	android:name
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:5:20-76
+uses-permission#android.permission.INTERNET
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:7:3-64
+	android:name
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:7:20-62
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:8:3-76
+	android:name
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:8:20-74
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:9:3-73
+	android:name
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:9:20-71
+uses-permission#android.permission.WAKE_LOCK
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:11:3-65
+	android:name
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:11:20-63
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:13:3-76
+	android:name
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:13:20-74
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:14:3-78
+	android:name
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:14:20-76
+application
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:16:3-70:17
+service#io.rong.imlib.ipc.RongService
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:19:5-22:31
+	android:process
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:22:7-29
+	android:exported
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:21:7-30
+	android:name
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:20:7-51
+receiver#io.rong.imlib.ConnectChangeReceiver
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:24:5-26:32
+	android:exported
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:26:7-30
+	android:name
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:25:7-57
+receiver#io.rong.imlib.HeartbeatReceiver
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:28:5-30:31
+	android:process
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:30:7-29
+	android:name
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:29:7-53
+service#io.rong.push.rongpush.PushService
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:34:5-38:39
+	android:process
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:38:7-37
+	android:exported
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:36:7-30
+	android:permission
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:37:7-63
+	android:name
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:35:7-55
+receiver#io.rong.push.rongpush.PushReceiver
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:41:5-56:16
+	android:process
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:43:7-37
+	android:name
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:42:7-56
+intent-filter#action:name:android.net.conn.CONNECTIVITY_CHANGE+action:name:io.rong.push.intent.action.HEART_BEAT
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:45:7-48:23
+action#io.rong.push.intent.action.HEART_BEAT
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:46:9-71
+	android:name
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:46:17-69
+action#android.net.conn.CONNECTIVITY_CHANGE
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:47:9-70
+	android:name
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:47:17-68
+intent-filter#action:name:android.intent.action.ACTION_POWER_CONNECTED+action:name:android.intent.action.ACTION_POWER_DISCONNECTED+action:name:android.intent.action.USER_PRESENT
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:51:7-55:23
+action#android.intent.action.USER_PRESENT
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:52:9-68
+	android:name
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:52:17-66
+action#android.intent.action.ACTION_POWER_CONNECTED
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:53:9-78
+	android:name
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:53:17-76
+action#android.intent.action.ACTION_POWER_DISCONNECTED
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:54:9-81
+	android:name
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:54:17-79
+receiver#cn.rongcloud.imlib.react.RCPushReceiver
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:62:5-69:16
+	tools:ignore
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:63:38-69
+	android:name
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:63:7-37
+intent-filter#action:name:io.rong.push.intent.MESSAGE_ARRIVED+action:name:io.rong.push.intent.MESSAGE_CLICKED+action:name:io.rong.push.intent.THIRD_PARTY_PUSH_STATE
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:64:7-68:23
+action#io.rong.push.intent.MESSAGE_ARRIVED
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:65:9-69
+	android:name
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:65:17-67
+action#io.rong.push.intent.MESSAGE_CLICKED
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:66:9-69
+	android:name
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:66:17-67
+action#io.rong.push.intent.THIRD_PARTY_PUSH_STATE
+ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:67:9-76
+	android:name
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml:67:17-74
+uses-sdk
+INJECTED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml
+INJECTED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml
+INJECTED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml
+INJECTED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml
+		INJECTED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml
+		ADDED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml
+		INJECTED from /Users/rocklee/WorkSpace/Bat100_Bug/node_modules/rongcloud-react-native-imlib/lib/android/src/main/AndroidManifest.xml
