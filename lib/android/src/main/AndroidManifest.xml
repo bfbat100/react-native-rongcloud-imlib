@@ -46,7 +46,7 @@
         <action android:name="io.rong.push.intent.action.HEART_BEAT"/>
         <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
       </intent-filter>
-
+    </receiver>
     <!--必选： SDK 核心功能-->
 
     <!-- end -->
