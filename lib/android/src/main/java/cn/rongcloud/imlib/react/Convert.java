@@ -1,9 +1,12 @@
 package cn.rongcloud.imlib.react;
 
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
+
+import androidx.annotation.RequiresApi;
 
 import com.facebook.react.bridge.*;
 
@@ -440,12 +443,14 @@ class Convert {
         return conversationTypesArray;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     static Message toMessage(ReadableMap map) {
         ConversationType conversationType = ConversationType.setValue(map.getInt("conversationType"));
         MessageContent content = toMessageContent(map.getMap("content"));
         return Message.obtain(map.getString("targetId"), conversationType, content);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     static MessageContent toMessageContent(ReadableMap map) {
         if (map == null) {
             return null;
@@ -471,7 +476,29 @@ class Convert {
                     }
                     break;
                 case "RC:FileMsg":
-                    messageContent = FileMessage.obtain(Utils.getFileUri(reactContext,map.getString("local")));
+
+                    String fileLocalUri = map.getString("local");
+                    if (TextUtils.isEmpty(fileLocalUri)){
+                        File file = new File(reactContext.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS),"abc.abc");
+                        if (!file.exists()){
+                            try {
+                                FileOutputStream fos = new FileOutputStream(file);
+                                fos.write("abc".getBytes());
+                                fos.flush();
+                            } catch (FileNotFoundException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+
+                        String path = "file://" + file.getAbsolutePath();
+                        messageContent = FileMessage.obtain(reactContext,Utils.getFileUri(reactContext,path));
+                    }else{
+                        messageContent = FileMessage.obtain(reactContext,Utils.getFileUri(reactContext,fileLocalUri));
+                    }
+
                     if (map.hasKey("extra") && map.getString("extra") != null) {
                         String extra = map.getString("extra");
                         try {
